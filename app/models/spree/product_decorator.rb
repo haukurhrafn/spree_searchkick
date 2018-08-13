@@ -20,8 +20,13 @@ Spree::Product.class_eval do
       currency: currency,
       conversions: orders.complete.count,
       taxon_ids: taxon_and_ancestors.map(&:id),
-      taxon_names: taxon_and_ancestors.map(&:name)
+      taxon_names: taxon_and_ancestors.map(&:name),
+      list_position: index_list_position
     }
+
+    self.classifications.each do |classification|
+      json[classification.taxon.sort_key.to_sym] = classification.position
+    end
 
     Spree::Property.all.each do |prop|
       json.merge!(Hash[prop.name.downcase, property(prop.name)])
@@ -32,6 +37,14 @@ Spree::Product.class_eval do
     end
 
     json
+  end
+
+  def index_list_position
+    if self.respond_to? :list_position
+      list_position
+    else
+      0
+    end
   end
 
   def taxon_by_taxonomy(taxonomy_id)

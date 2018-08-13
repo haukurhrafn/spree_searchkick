@@ -34,9 +34,7 @@ module Spree
       end
 
       def sorted
-        order_params = {}
-        order_params[:conversions] = :desc if conversions
-        order_params
+        @sort
       end
 
       def aggregations
@@ -60,7 +58,7 @@ module Spree
 
       def prepare(params)
         super
-        @properties[:conversions] = params[:conversions]
+        @sort = Spree::Core::SearchkickSorts.process_sorts(params, taxon)
       end
     end
   end
