@@ -6,7 +6,7 @@ Spree::Product.class_eval do
   end
 
   def self.search_fields
-    [:name], [:description], [:taxon_names]
+    [:name, :description, :taxon_names]
   end
 
   def search_data
