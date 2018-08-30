@@ -22,8 +22,7 @@ Spree::Product.class_eval do
       taxon_ids: taxon_and_ancestors.map(&:id),
       taxon_names: taxon_and_ancestors.map(&:name),
       list_position: index_list_position,
-      keywords: meta_keywords,
-      match: :word_start
+      keywords: meta_keywords
     }
 
     self.classifications.each do |classification|

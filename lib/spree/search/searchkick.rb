@@ -15,7 +15,8 @@ module Spree
           smart_aggs: true,
           order: sorted,
           page: curr_page,
-          per_page: per_page
+          per_page: per_page,
+          match: :word_start
         )
       end
 
